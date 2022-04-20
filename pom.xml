@@ -8,6 +8,9 @@
         <module>coupon-template-serv/coupon-template-api</module>
         <module>coupon-template-serv/coupon-template-dao</module>
         <module>coupon-template-serv/coupon-template-impl</module>
+        <module>coupon-calculation-serv</module>
+        <module>coupon-calculation-serv/coupon-calculation-api</module>
+        <module>coupon-calculation-serv/coupon-calculation-impl</module>
     </modules>
 
     <parent>
