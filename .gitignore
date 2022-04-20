@@ -1,0 +1,4 @@
+# Project exclude paths
+/coupon-template-serv/coupon-template-api/target/
+/coupon-template-serv/coupon-template-dao/target/
+/coupon-template-serv/coupon-template-impl/target/
