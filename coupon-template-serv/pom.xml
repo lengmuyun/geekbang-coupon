@@ -12,6 +12,12 @@
     <artifactId>coupon-template-serv</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>coupon-template-api</module>
+        <module>coupon-template-dao</module>
+        <module>coupon-template-impl</module>
+    </modules>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

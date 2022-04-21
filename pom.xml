@@ -5,16 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>coupon-template-serv</module>
-        <module>coupon-template-serv/coupon-template-api</module>
-        <module>coupon-template-serv/coupon-template-dao</module>
-        <module>coupon-template-serv/coupon-template-impl</module>
         <module>coupon-calculation-serv</module>
-        <module>coupon-calculation-serv/coupon-calculation-api</module>
-        <module>coupon-calculation-serv/coupon-calculation-impl</module>
         <module>coupon-customer-serv</module>
-        <module>coupon-customer-serv/coupon-customer-api</module>
-        <module>coupon-customer-serv/coupon-customer-dao</module>
-        <module>coupon-customer-serv/coupon-customer-impl</module>
     </modules>
 
     <parent>
