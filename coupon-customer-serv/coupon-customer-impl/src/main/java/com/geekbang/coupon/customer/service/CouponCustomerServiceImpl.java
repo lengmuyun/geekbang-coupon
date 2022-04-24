@@ -6,6 +6,7 @@ import com.geekbang.coupon.calculation.api.beans.SimulationResponse;
 import com.geekbang.coupon.customer.api.beans.RequestCoupon;
 import com.geekbang.coupon.customer.api.beans.SearchCoupon;
 import com.geekbang.coupon.customer.api.enums.CouponStatus;
+import com.geekbang.coupon.customer.constant.Constant;
 import com.geekbang.coupon.customer.dao.CouponDao;
 import com.geekbang.coupon.customer.dao.entity.Coupon;
 import com.geekbang.coupon.customer.service.intf.CouponCustomerService;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.transaction.Transactional;
 import java.util.Calendar;
@@ -38,6 +40,9 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
     @Autowired
     private WebClientCouponCalculationServiceImpl calculationService;
+
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
     @Override
     public SimulationResponse simulateOrderPrice(SimulationOrder order) {
@@ -102,7 +107,13 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
      */
     @Override
     public Coupon requestCoupon(RequestCoupon request) {
-        CouponTemplateInfo templateInfo = couponTemplateService.loadTemplateInfo(request.getCouponTemplateId());
+        CouponTemplateInfo templateInfo = webClientBuilder.build()
+                .get()
+                .uri("http://coupon-template-serv/template/getTemplate?id=" + request.getCouponTemplateId())
+                .header(Constant.TRAFFIC_VERSION, request.getTrafficVersion())
+                .retrieve()
+                .bodyToMono(CouponTemplateInfo.class)
+                .block();
 
         // 模板不存在则报错
         if (templateInfo == null) {
