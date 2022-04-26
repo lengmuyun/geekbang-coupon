@@ -19,6 +19,20 @@
 
     <dependencies>
 
+        <!-- hystrix组件，专门用来演示OpenFeign降级 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <version>2.2.10.RELEASE</version>
+            <exclusions>
+                <!-- 移除Ribbon负载均衡器，避免冲突 -->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-netflix-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- OpenFeign组件 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

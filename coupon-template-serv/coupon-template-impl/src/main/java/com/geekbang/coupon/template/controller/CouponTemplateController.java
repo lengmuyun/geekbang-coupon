@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -44,6 +45,11 @@ public class CouponTemplateController {
     @GetMapping("/getTemplate")
     public CouponTemplateInfo getTemplate(@RequestParam("id") Long id){
         log.info("Load template, id={}", id);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return couponTemplateService.loadTemplateInfo(id);
     }
 
