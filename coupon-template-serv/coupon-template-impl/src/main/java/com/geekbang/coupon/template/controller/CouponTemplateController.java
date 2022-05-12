@@ -59,10 +59,19 @@ public class CouponTemplateController {
 
     // 批量获取
     @GetMapping("/getBatch")
-    @SentinelResource(value = "getTemplateInBatch", blockHandler = "")
+    @SentinelResource(value = "getTemplateInBatch",
+            fallback = "getTemplateInBatch_fallback",
+            blockHandler = "getTemplateInBatch_block")
     public Map<Long, CouponTemplateInfo> getTemplateInBatch(@RequestParam("ids") Collection<Long> ids) {
         log.info("getTemplateInBatch: {}", JSON.toJSONString(ids));
         return couponTemplateService.getTemplateInfoMap(ids);
+    }
+
+    // 接口被降级时的方法
+    public Map<Long, CouponTemplateInfo> getTemplateInBatch_fallback(
+            Collection<Long> ids) {
+        log.info("接口被降级");
+        return Maps.newHashMap();
     }
 
     public Map<Long, CouponTemplateInfo> getTemplateInBatch_block(@RequestParam("ids") Collection<Long> ids, BlockException exception) {
