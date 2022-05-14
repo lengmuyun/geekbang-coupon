@@ -7,6 +7,9 @@
         <module>coupon-template-serv</module>
         <module>coupon-calculation-serv</module>
         <module>coupon-customer-serv</module>
+        <module>middleware</module>
+        <module>gateway</module>
+        <module>middleware/gateway</module>
     </modules>
 
     <parent>
