@@ -35,6 +35,39 @@ spring:
       hibernate.format_sql: true
     open-in-view: false
   cloud:
+    stream:
+      binders:
+        my-rabbit:
+          type: rabbit # 消息中间件类型
+          environment:
+            spring:
+              rabbitmq:
+                host: 192.168.254.135
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        addCoupon-out-0:
+          destination: request-coupon-topic
+          content-type: application/json
+          binder: my-rabbit
+        addCoupon-in-0:
+          destination: request-coupon-topic
+          content-type: application/json
+          group: add-coupon-group
+          binder: my-rabbit
+        deleteCoupon-out-0:
+          destination: delete-coupon-topic
+          content-type: text/plain
+          binder: my-rabbit
+        deleteCoupon-in-0:
+          destination: delete-coupon-topic
+          content-type: text/plain
+          group: delete-coupon-group
+          binder: my-rabbit
+      function:
+        definition: addCoupon;deleteCoupon
+
     sentinel:
       transport:
         # sentinel api端口, 默认8719
@@ -93,6 +126,7 @@ spring:
     rabbitmq:
       addresses: 192.168.254.135
       queue: zipkin
+
 
 logging:
   level:
