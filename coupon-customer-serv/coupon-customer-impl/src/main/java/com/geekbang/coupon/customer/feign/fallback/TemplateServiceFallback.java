@@ -24,4 +24,8 @@ public class TemplateServiceFallback implements TemplateService {
         return null;
     }
 
+    @Override
+    public void deleteTemplate(Long id) {
+        log.info("fallback deleteTemplate, id: {}", id);
+    }
 }

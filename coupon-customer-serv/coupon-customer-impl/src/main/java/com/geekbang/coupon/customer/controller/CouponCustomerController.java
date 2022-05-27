@@ -10,6 +10,7 @@ import com.geekbang.coupon.customer.dao.entity.Coupon;
 import com.geekbang.coupon.customer.event.CouponProducer;
 import com.geekbang.coupon.customer.service.intf.CouponCustomerService;
 import com.geekbang.coupon.template.api.beans.CouponInfo;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +72,12 @@ public class CouponCustomerController {
     @SentinelResource(value = "customer-findCoupon")
     public List<CouponInfo> findCoupon(@Valid @RequestBody SearchCoupon request) {
         return customerService.findCoupon(request);
+    }
+
+    @DeleteMapping("template")
+    @GlobalTransactional(name = "coupon-customer-serv", rollbackFor = Exception.class)
+    public void deleteCoupon(@RequestParam("templateId") Long templateId) {
+        customerService.deleteCouponTemplate(templateId);
     }
 
 }

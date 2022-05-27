@@ -35,6 +35,9 @@ spring:
       hibernate.format_sql: true
     open-in-view: false
   cloud:
+    alibaba:
+      seata:
+        tx-service-group: seata-server-group
     stream:
       binders:
         my-rabbit:
@@ -144,3 +147,17 @@ feign:
         readTimeout: 3000
       coupon-template-serv:
         readTimeout: 1000
+
+seata:
+  application-id: coupon-customer-serv
+  registry:
+    nacos:
+      application: seata-server
+      server-addr: localhost:8848
+      group: myGroup
+      cluster: default
+      namespace: dev
+    type: nacos
+  service:
+    vgroup-mapping:
+      seata-server-group: default
